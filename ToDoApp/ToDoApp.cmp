@@ -1,0 +1,46 @@
+<!--
+  The Component view definition for the ToDo Lightning component.
+ -->
+<aura:component controller="ToDoItemController" implements="force:appHostable">
+    <!-- Title of the application -->
+    <aura:attribute name="title" type="String" default="ToDo App"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+
+    <!---->
+    <!--Attributes used in the component.-->
+    <!---->
+    <!-- Create projects attribute that is a list of ToDoItem Objects -->
+    <aura:attribute name="items" type="ToDoItem__c[]"/>
+    <!---->
+
+    <!--Third party css-->
+    <!-- Angular Motion -->
+    <c:requires styles="/resource/AngularMotion/angular-motion.min.css"/>
+     <!-- Angular material css -->
+    <c:requires styles="/resource/AngularMaterial/dist/angular-material/angular-material.min.css"/>
+
+    <!-- When the requireReady event is fired call function to load third party scripts -->
+    <aura:handler event="c:RequiresReady" action="{!c.initScripts}" />
+
+    <!---->
+    <!--Event definition and handler wiring used to tie the angular app to activities in the lightning -->
+    <!--component.  -->
+    <!---->
+    <aura:registerEvent name="c:ToDoAppItemsLoad" type="c:ToDoAppItemsLoad"/>
+    <aura:registerEvent name="c:ToDoAppNewItem" type="c:ToDoAppNewItem"/>
+    <aura:registerEvent name="c:ToDoAppUpdateItems" type="c:ToDoAppUpdateItems"/>
+
+    <aura:handler event="c:ToDoAppNewItem" action="{!c.createNewItem}" />
+    <aura:handler event="c:ToDoAppUpdateItems" action="{!c.updateItems}" />
+    <aura:handler event="c:ToDoAppItemsLoad" action="{!c.processItemsLoad}" />
+
+    <!--Configure mobile friendly viewing-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!--The base element that will be bootstrapped by angular-->
+	<div aura:id="base" class="main-content" layout="column" data-ng-controller="ToDoListAppCtrl">
+	   <div data-todolist="true" data-items="items"></div>
+    </div> 
+
+</aura:component>

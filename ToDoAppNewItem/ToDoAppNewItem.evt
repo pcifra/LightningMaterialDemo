@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION">
+	<aura:attribute name="task" type="String"/>
+</aura:event>

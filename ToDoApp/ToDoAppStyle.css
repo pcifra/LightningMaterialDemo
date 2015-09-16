@@ -1,0 +1,21 @@
+.THIS.container {	
+	width: 100%;
+	padding: 10px 0px;
+	margin: 0px;
+	background-color: white;
+}
+
+
+.THIS .center {
+	margin: 0px auto;
+}
+
+.THIS .content {
+	max-width: 768px;
+	font-size: 12px;
+	color: #3c3d3e;
+}
+
+.THIS.main-content {
+	background-color: white !important;
+}

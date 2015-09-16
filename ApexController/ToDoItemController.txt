@@ -1,0 +1,47 @@
+/**
+ * The controller class used by the ToDoItem lightning component.
+ **/
+public class ToDoItemController {
+
+    /**
+     * Get the ToDo items for the organization.
+     **/
+    @AuraEnabled
+    public static List<ToDoItem__c> getToDoItems() {
+        return [SELECT Id, name, task__c, active__c from ToDoItem__c where active__c = true];
+    }
+   
+    /**
+     * Add a ToDo item.
+     * @params projectName The name for the new project.
+     **/
+    @AuraEnabled
+    public static void addToDoItem(String task) {
+        ToDoItem__c item = new ToDoItem__c(name = task, task__c= task, active__c=true);
+        insert item;
+    }
+   /**
+    * Update to do items
+    * @param tasks The tasks to update.
+    **/
+    @AuraEnabled
+    public static void updateToDoItems(String tasks) {
+        List<String> tasksList = new List<String>();
+        Object[] values = (Object[])System.JSON.deserializeUntyped(tasks);
+        if(values.size()>0){
+            for (Object item : values) {
+             tasksList.add(string.valueof(item) );
+            }
+        }
+        List<ToDoItem__c> items = new List<ToDoItem__c>{};
+        for(Integer i = 0; i < tasksList.size(); i++){
+          ToDoItem__c item = [Select Id, name, task__c, active__c from ToDoItem__c where task__c = :tasksList[i] limit 1];
+          item.active__c = false;
+          items.add(item);
+        }
+        update items;
+    }
+    
+
+    
+ }

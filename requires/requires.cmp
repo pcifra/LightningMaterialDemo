@@ -1,0 +1,5 @@
+<aura:component>
+    <aura:attribute name="styles" type="String[]"/>
+  	<aura:registerEvent name="c:RequiresReady" type="c:RequiresReady"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+</aura:component>
